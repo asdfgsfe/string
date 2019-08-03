@@ -20,7 +20,7 @@ String::String(const String& other)
 	{
 		return;
 	}
-  len_ = other.len_;
+  	len_ = other.len_;
 	data_ = new char[len_ + 1];
 	::memcpy(data_, other.data_, len_);
 	data_[len_] = '\0';
