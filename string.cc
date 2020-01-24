@@ -11,6 +11,7 @@ String::String(const char* data)
 {
 	len_ = ::strlen(data);
 	data_ = new char[len_ + 1];
+    memcpy(data_, data, len_);
 	data_[len_] = '\0';
 }
 
@@ -57,7 +58,7 @@ String& String::operator=(String&& other)
 	}
 	if (data_)
 	{
-		delete data_;
+		delete[] data_;
 	}
 	data_ = other.data_;
 	len_ = other.len_;
@@ -70,6 +71,7 @@ String::~String()
 {
 	if (data_)
 	{
-		delete data_;
+		delete[] data_;
+        len_ = 0;
 	}
 }
