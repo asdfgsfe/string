@@ -17,10 +17,11 @@ String::String(const char* data)
 
 String::String(const String& other)
 {
-	if (&other == this)
-	{
-		return;
-	}
+	//错误 拷贝构造函数不用 处理自我赋值
+  //if (&other == this)
+	//{
+		//return;
+	//}
   	len_ = other.len_;
 	data_ = new char[len_ + 1];
 	::memcpy(data_, other.data_, len_);
@@ -39,14 +40,19 @@ String::String(String&& other)
 	other.data_ = nullptr;
 }
 
-String& String::operator=(String other)
+String& String::operator=(/*String other*/ const String& other)
 {
-	if (&other == this)
+	//传进来一个值 然后换 是一个不好得方法 会阻碍编译器生成好的代码
+  if (&other == this)
 	{
 		return *this;
 	}
 	std::swap(data_, other.data_);
 	std::swap(len_, other.len_);
+
+  //正确应该
+  String tmp(other);
+  std::swap(*this, tmp);
 	return *this;
 }
 
