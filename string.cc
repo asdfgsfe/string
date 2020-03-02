@@ -30,10 +30,10 @@ String::String(const String& other)
 
 String::String(String&& other)
 {
-	if (&other == this)
-	{
-		return;
-	}
+	//if (&other == this)
+	//{
+		//return;
+	//}
 	data_ = other.data_;
 	len_ = other.len_;
 	other.len_ = 0;
@@ -43,12 +43,13 @@ String::String(String&& other)
 String& String::operator=(/*String other*/ const String& other)
 {
 	//传进来一个值 然后换 是一个不好得方法 会阻碍编译器生成好的代码
+    //判断this的目的是为了 自己把自己析构掉 然后再考呗 就啥都没有了
   if (&other == this)
 	{
 		return *this;
 	}
-	std::swap(data_, other.data_);
-	std::swap(len_, other.len_);
+	//std::swap(data_, other.data_);
+	//std::swap(len_, other.len_);
 
   //正确应该
   String tmp(other);
@@ -62,10 +63,11 @@ String& String::operator=(String&& other)
 	{
 		return *this;
 	}
-	if (data_)
-	{
-		delete[] data_;
-	}
+	//if (data_)
+	//{
+	//	delete[] data_;
+	//}
+    ~String();//这里改为调用析构函数
 	data_ = other.data_;
 	len_ = other.len_;
 	other.len_ = 0;
